@@ -12,17 +12,54 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 @layer base {
   :root {
-    color-scheme: light dark;
+    --font-sans: "DM Sans", sans-serif;
+    --background: #eff6ff;
+    --foreground: #000000;
+    --main: #3b82f6;
+    --main-foreground: #ffffff;
+    --border: #000000;
+    --secondary-background: #ffffff;
+    --muted-foreground: #333333;
+  }
+  .dark {
+    --background: #1e3a8a;
+    --foreground: #ffffff;
+    --main: #60a5fa;
+    --main-foreground: #000000;
+    --border: #000000;
+    --secondary-background: #1e40af;
+    --muted-foreground: #b8b8b8;
+  }
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--background);
+    color: var(--foreground);
   }
 }
 
+@layer utilities {
+  .card-enter {
+    animation: card-enter 200ms ease-out both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-enter {
+      animation: none;
+    }
+  }
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
