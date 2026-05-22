@@ -19,24 +19,21 @@ React 18 + TypeScript SPA built with Vite and styled with Tailwind CSS v3. No ro
 **State management** — `src/state/`
 - `types.ts` defines `AppState`, `AppAction`, and `initialState`.
 - `store.tsx` exposes a React Context + `useReducer` store (`AppProvider`, `useAppState`, `useAppDispatch`). State is persisted to `localStorage` with a 300 ms debounce via `src/utils/storage.ts`.
-- Dark mode is stored in state and applied by toggling a `dark` class on `<html>`.
+- Theme switching is handled by the shared `@prasheel/ui` `ThemeSwitcher` in `src/components/Header.tsx`.
 
 **Feature modules** — `src/features/`
-Each subdirectory is a self-contained feature rendered inside a `<SectionCard>`:
-- `Decision/` — evaluates a current item via gut check, value filter, and budget checks; `Summary` renders the verdict.
-- `MoneyMap/` — income bucket allocation (essentials / future fund / freedom fund).
-- `Wishlist/` — 48-hour waiting list with add/purchase/delete actions.
-- `Advisor/` — keyword-based (no AI/network call) purchase advisor using `src/utils/rules.ts`.
-- `Settings/` — luxury threshold, data export/import/clear.
+Each subdirectory contains standalone panels/cards rendered by `App.tsx`, using shared `@prasheel/ui` primitives where available:
+- `Setup/` — captures and edits monthly income.
+- `Item/` — captures the purchase, shows perspective metrics, budget impact, and cost-per-hour comparisons.
+- `Decision/` — collects gut/value checks and renders the final verdict.
 
 **Decision logic** — `src/utils/rules.ts`
-All purchase-decision logic lives here (`calculateDecision`, `getAdvisorGuidance`). The advisor uses keyword matching against the query string — it is entirely client-side with no external API calls.
+The purchase-decision verdict logic lives here (`calculateDecision`). Perspective and cost-per-hour helpers live in `src/utils/perspectives.ts` and `src/utils/costPerHour.ts`.
 
 **Deployment** — GitHub Actions (`.github/workflows/deploy.yml`) builds and deploys to GitHub Pages. The `VITE_BASE` env var sets the Vite `base` path for the Pages subdirectory.
 
 ## Key conventions
 
 - Currency is displayed in euros (€).
-- `luxuryThreshold` (default €100) gates the 48-hour waiting rule.
-- Prices are stored as plain numbers (euros); percentages in `buckets` sum to 100.
-- All data is local-only — `localStorage` key `luxury-vs-basic-advisor`.
+- Prices and monthly income are stored as plain numbers (euros).
+- All data is local-only — `localStorage` key `buying-decision-maker`.

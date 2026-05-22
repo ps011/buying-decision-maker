@@ -25,20 +25,17 @@ Open http://localhost:5173 in your browser.
     Toggle.tsx         # Checkbox toggle
     
   /features            # Feature-specific components
+    /Setup
+      IncomeSetup.tsx  # First-run monthly income prompt
+      IncomeChip.tsx   # Compact income editor
+    /Item
+      ItemInput.tsx    # Item, price, and usage inputs
+      Perspectives.tsx # Work/time/savings perspective metrics
+      BudgetImpact.tsx # Monthly income impact meter
+      CostPerHour.tsx  # Cost-per-hour comparison
     /Decision
-      GutCheck.tsx     # Yes/No gut check buttons
-      ValueFilter.tsx  # 3 checkboxes for value criteria
-      CurrentItem.tsx  # Name + price input
-      Summary.tsx      # Decision verdict card
-    /MoneyMap
-      Buckets.tsx      # Budget allocation with 3 buckets
-    /Wishlist
-      WishlistForm.tsx # Add items form
-      WishlistList.tsx # List with age tracking
-    /Advisor
-      Advisor.tsx      # Q&A with rule-based guidance
-    /Settings
-      Settings.tsx     # Threshold, export, clear data
+      Checks.tsx       # Gut check and value criteria
+      Verdict.tsx      # Buy/wait/skip result
       
   /state               # State management
     types.ts           # TypeScript types
@@ -46,8 +43,9 @@ Open http://localhost:5173 in your browser.
     
   /utils               # Utility functions
     storage.ts         # localStorage helpers
-    time.ts            # Age calculation
-    rules.ts           # Decision + advisor logic
+    rules.ts           # Verdict decision logic
+    perspectives.ts    # Work/time/savings perspective helpers
+    costPerHour.ts     # Cost-per-hour calculation and benchmarks
     
   App.tsx              # Main app component
   main.tsx             # Entry point
@@ -56,49 +54,24 @@ Open http://localhost:5173 in your browser.
 
 ## How to Use
 
-### 1. Set Up Your Buckets
+### 1. Set Monthly Income
 
-Go to the **Money Map** section and:
-- Adjust percentages for Essentials, Future Fund, and Freedom Fund (must total 100%)
-- Enter your monthly income
-- See live calculations of absolute amounts
+On first launch, enter your monthly take-home income. Use the income chip near the top of the app to edit it later.
 
 ### 2. Evaluate a Purchase
 
-In the **Decision Framework** section:
-- Enter item name and price in "Current Item"
-- Answer the gut check: "Would I still want this if nobody saw it?"
-- Check the 3 value filters
-- See your verdict (Buy/Wait/Defer) with reasoning
-
-### 3. Add to Wishlist
-
-For items you're not sure about:
-- Use the **48-Hour Wishlist** section
-- Add item with name, price, link, and notes
-- Watch the age counter update every minute
-- Items show "Waiting" (<48h) or "Ready" (≥48h) status
-- Click "Evaluate" to load into Decision Framework
-
-### 4. Ask the Advisor
-
-Need guidance on a tricky decision?
-- Go to **Ask the Advisor**
-- Describe your situation or doubt
-- Get a verdict (Buy/Wait/Defer) with reasons and next steps
-- The advisor uses keyword detection to match framework rules
-
-### 5. Customize Settings
-
-- Adjust **Luxury Threshold** (default €100) to control 48-hour rule
-- **Export Data** to download a JSON backup
-- **Clear All Data** to reset everything (with confirmation)
+In the main form:
+- Enter the item name and price.
+- Add expected hours per week and lifespan in years to see cost per hour.
+- Review work/time/savings perspective metrics and monthly budget impact.
+- Answer the gut check and value criteria.
+- See the verdict: Buy it, Wait, or Skip it.
 
 ## Deploy to GitHub Pages
 
 1. Push to a GitHub repo
 2. Enable GitHub Actions in repo settings
-3. Go to Settings → Pages → Source: "GitHub Actions"
+3. Configure GitHub Pages to use source "GitHub Actions"
 4. Push to `main` branch
 5. Wait for deployment (check Actions tab)
 6. Access at `https://<username>.github.io/<repo-name>/`
@@ -113,47 +86,34 @@ Try these to see the framework in action:
 - Item: Designer Sneakers, €250
 - Gut: No
 - Value: 0/3 checks
-- **Expected**: Defer (status-seeking, no genuine value)
+- **Expected**: Skip it (external pressure, not genuine want)
 
 ### Scenario 2: Daily Essential
 - Item: Quality Backpack, €80
 - Gut: Yes
 - Value: 3/3 checks (use often, improves day, affordable)
-- Monthly income: €2000, Freedom Fund: 20% (€400)
-- **Expected**: Buy (under threshold, all checks pass)
+- Monthly income: €2000
+- **Expected**: Buy it (all checks pass)
 
-### Scenario 3: Luxury Item
+### Scenario 3: Needs More Thought
 - Item: Laptop, €1200
 - Gut: Yes
-- Value: 3/3 checks
-- Add to wishlist (just added)
-- **Expected**: Wait (above threshold, <48h)
-
-### Scenario 4: Advisor - Risky Finance
-- Query: "I want to buy AirPods Max on EMI for 12 months"
-- **Expected**: Defer (mentions EMI = debt for discretionary item)
-
-### Scenario 5: Advisor - Sale Trap
-- Query: "iPhone is 30% off but I just want it for status"
-- **Expected**: Wait (sale + status keywords = external motivation)
+- Value: 1/3 checks
+- **Expected**: Wait (only one value criterion met)
 
 ## Theme Toggle
 
 - Click 🌙/☀️ icon in header to toggle light/dark mode
-- Theme preference is saved in localStorage
-- Respects system preference on first load
 
 ## Data Persistence
 
-All data is stored in localStorage under key `luxury-vs-basic-advisor`:
-- Theme preference
-- Gut check and value filter states
-- Bucket allocations and monthly income
-- Wishlist items with timestamps
-- Luxury threshold
+All app data is stored in localStorage under key `buying-decision-maker`:
+- Monthly income
 - Current item draft
+- Gut check and value filter states
+- Usage estimates
 
-Data persists across sessions. Use Export/Import for backups.
+Data persists across sessions.
 
 ## Browser Support
 
@@ -172,7 +132,6 @@ After initial load, the app works completely offline. All logic runs client-side
 - **Mobile responsive**: Works great on phones/tablets
 - **Keyboard accessible**: All inputs have proper labels and focus states
 - **Auto-save**: Changes are saved automatically with 300ms debounce
-- **Live updates**: Wishlist ages update every 60 seconds
-- **Copy verdict**: Click 📋 on decision summary to copy verdict text
+- **Cost perspective**: Add usage estimates to compare cost per hour against common entertainment benchmarks
 
 Enjoy guilt-free spending! 🎯
