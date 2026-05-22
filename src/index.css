@@ -13,25 +13,6 @@ html {
 }
 
 @layer base {
-  :root {
-    --font-sans: "DM Sans", sans-serif;
-    --background: #eff6ff;
-    --foreground: #000000;
-    --main: #3b82f6;
-    --main-foreground: #ffffff;
-    --border: #000000;
-    --secondary-background: #ffffff;
-    --muted-foreground: #333333;
-  }
-  .dark {
-    --background: #1e3a8a;
-    --foreground: #ffffff;
-    --main: #60a5fa;
-    --main-foreground: #000000;
-    --border: #000000;
-    --secondary-background: #1e40af;
-    --muted-foreground: #b8b8b8;
-  }
   body {
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;

@@ -15,7 +15,6 @@ export interface Usage {
 }
 
 export interface AppState {
-  theme: 'light' | 'dark';
   monthlyIncome: number;
   item: Item;
   gutCheck: 'yes' | 'no' | null;
@@ -24,7 +23,6 @@ export interface AppState {
 }
 
 export type AppAction =
-  | { type: 'SET_THEME'; payload: 'light' | 'dark' }
   | { type: 'SET_MONTHLY_INCOME'; payload: number }
   | { type: 'SET_ITEM'; payload: Partial<Item> }
   | { type: 'SET_GUT_CHECK'; payload: 'yes' | 'no' | null }
@@ -34,7 +32,6 @@ export type AppAction =
   | { type: 'LOAD_STATE'; payload: Partial<AppState> };
 
 export const initialState: AppState = {
-  theme: 'light',
   monthlyIncome: 0,
   item: { name: '', price: 0 },
   gutCheck: null,
