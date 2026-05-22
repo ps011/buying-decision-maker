@@ -61,7 +61,7 @@ export function Checks() {
               onClick={() => toggle(key)}
               aria-pressed={valueFilter[key]}
               style={{ touchAction: 'manipulation' }}
-              className={`w-full justify-start whitespace-normal min-h-12 py-3 px-4 text-left text-sm font-medium gap-3 ${
+              className={`w-full justify-start whitespace-normal h-auto min-h-12 py-3 px-4 text-left text-sm font-medium gap-3 ${
                 valueFilter[key]
                   ? 'bg-main text-main-foreground translate-x-boxShadowX translate-y-boxShadowY shadow-none'
                   : ''
