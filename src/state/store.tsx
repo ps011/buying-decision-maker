@@ -7,8 +7,6 @@ const AppDispatchContext = createContext<React.Dispatch<AppAction> | undefined>(
 
 function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
-    case 'SET_THEME':
-      return { ...state, theme: action.payload };
     case 'SET_MONTHLY_INCOME':
       return { ...state, monthlyIncome: action.payload };
     case 'SET_ITEM':
@@ -34,18 +32,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const saved = loadState();
     if (saved) dispatch({ type: 'LOAD_STATE', payload: saved });
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (!saved?.theme) dispatch({ type: 'SET_THEME', payload: prefersDark ? 'dark' : 'light' });
   }, []);
 
   useEffect(() => {
     const id = setTimeout(() => saveState(state), 300);
     return () => clearTimeout(id);
   }, [state]);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', state.theme === 'dark');
-  }, [state.theme]);
 
   return (
     <AppStateContext.Provider value={state}>
