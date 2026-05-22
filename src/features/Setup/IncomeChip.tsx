@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Pencil } from 'lucide-react';
+import { Button } from '@prasheel/ui';
 import { useAppState, useAppDispatch } from '../../state/store';
 
 export function IncomeChip() {
@@ -39,13 +40,16 @@ export function IncomeChip() {
   }
 
   return (
-    <button
+    <Button
+      type="button"
+      variant="neutral"
+      size="sm"
       onClick={startEdit}
-      className="flex items-center gap-1.5 px-3 py-1.5 rounded-base border-2 border-border bg-secondary-background text-sm font-bold text-foreground shadow-shadow-sm hover:translate-x-boxShadowX hover:translate-y-boxShadowY hover:shadow-none active:translate-x-boxShadowX active:translate-y-boxShadowY active:shadow-none transition-all duration-100 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground"
+      className="h-auto min-h-0 gap-1.5 px-3 py-1.5 text-sm font-bold"
       aria-label="Edit monthly income"
     >
       <span>€{monthlyIncome.toLocaleString()} /mo</span>
       <Pencil size={12} />
-    </button>
+    </Button>
   );
 }
