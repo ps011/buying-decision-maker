@@ -17,15 +17,12 @@ Open http://localhost:5173 in your browser.
 ```
 /src
   /components          # Reusable UI components
-    Header.tsx         # Sticky header with nav and theme toggle
-    SectionCard.tsx    # Card wrapper for sections
-    Button.tsx         # Button component
-    Toggle.tsx         # Checkbox toggle
+    Header.tsx         # Sticky header with theme switcher
+    Modal.tsx          # Modal dialog
     NumberInput.tsx    # Number input with prefix
     PercentInput.tsx   # Percentage input (0-100)
     TextArea.tsx       # Textarea component
-    Chips.tsx          # Status chips
-    Modal.tsx          # Modal dialog
+    Toggle.tsx         # Checkbox toggle
     
   /features            # Feature-specific components
     /Decision
@@ -179,4 +176,3 @@ After initial load, the app works completely offline. All logic runs client-side
 - **Copy verdict**: Click 📋 on decision summary to copy verdict text
 
 Enjoy guilt-free spending! 🎯
-
